@@ -17,3 +17,15 @@
 # 	   4   5
 # 	  / \   \
 # 	 5   4   7
+
+def merge_trees(root1, root2)
+  return root2 if root1.nil?
+  return root1 if root2.nil?
+
+  root1.val += root2.val
+
+  left_merge = merge_trees(root1.left)
+  right_merge = merge_trees(root2.right)
+
+  root1
+end
