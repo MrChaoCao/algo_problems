@@ -29,3 +29,31 @@ def merge_trees(root1, root2)
 
   root1
 end
+
+
+def merge_trees_iterative(root1, root2)
+  return root2 if root1.nil?
+
+  stack = [root1, root2]
+
+  until stack.empty?
+    merging_node = stack.pop
+    next if merging_node[0].nil? || merging_node[1].nil?
+
+    merging_node[0].val += merging_node[1].val
+
+    if merging_node[0].left.nil?
+      merging_node[0].left = merging_node[1].left
+    else 
+      stack.push(merging_node[0].left, merging_node[1].left)
+    end
+
+    if merging_node[1].right.nil?
+      merging_node[0].right = merging_node[1].right
+    else
+      stack.push(merging_node[0].right, merging_node[1].right)
+    end
+  end
+
+  root1
+end
