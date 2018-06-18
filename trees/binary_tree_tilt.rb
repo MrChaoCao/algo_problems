@@ -13,7 +13,20 @@
 # Tilt of node 3 : 0
 # Tilt of node 1 : |2-3| = 1
 # Tilt of binary tree : 0 + 0 + 1 = 1
+total_tilt = 0
 
 def find_tilt(root)
-  
+  tilt_value_finder(root)
+  total_tilt
+end
+
+
+def tilt_value_finder(root)
+  return 0 if root.nil?
+
+  left_sum = find_tilt(root.left) + root.value
+  right_sum = find_tilt(root.right) + root.value
+
+  total_tilt += (left_sum - right_sum).abs
+  right_sum + left_sum + root.value
 end
