@@ -10,29 +10,44 @@
 # Could you do it in O(n) time and O(1) space?
 
 def is_palindrome(head)
-  tail = list_reverser(head)
+  # 1) Create a slow and a fast runner
+  slow = head
+  fast = head
 
-  while head.next || tail.next
-    return false if head != tail
-    head = head.next
-    tail = tail.next
+  # 2) When fast runner is at the end, slow will be at the middle
+  while fast
+    slow = head.next
+    fast = head.next.next
   end
 
+  # 3) send fast back to the beginning and reverse the second half of the list
+  fast = head
+  slow = reverse_linked_list(slow)
+
+  # 4) Step through the list and if your slow and fast runners are unequal then it's not a palindrome
+  while slow
+    return false if slow.val != fast.val
+    fast = fast.next
+    slow = slow.next
+  end
+
+  # 5) If we reach the end and we haven't returned out, it must be a palindrome
   true
 end
 
-def list_reverser(head)
-  newHead = nil
+def reverse_linked_list(head)
+  reversed_head = nil
 
-  while head.next
-    current = head
-    head.next = newHead
-    newHead = head
-    head = current.next
+  until head.next.nil?
+    next_node = head.next
+    head.next = reversed_head
+    reversed_head = head
+    head = next_node
   end
 
-  newHead
+  reversed_head
 end
+
 
 #
 # take head link of the list
