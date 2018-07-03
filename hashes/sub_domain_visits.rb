@@ -22,14 +22,27 @@
 
 
 def subdomain_visits(cpdomains)
-    result_arr = {}
-    result_hsh = []
+  result = []
+  result_hsh = Hash.new(0)
 
-    cpdomains.each do |cpdomain|
-        total = cpdomain.split(' ')
-        visits = total[0]
-        domain = total[1]
+  cpdomains.each do |cpdomain|
+    total = cpdomain.split(' ')
+    visits = total[0].to_i
+    domain = total[1]
 
+    sub_domains = domain.split('.')
 
+    i = 0
+    while i < sub_domains.length
+      sub_domain = sub_domains.drop(sub_domains.length - 1 - i).join('.')
+      result_hsh[sub_domain] += visits
+      i += 1
     end
+  end
+
+  result_hsh.each do |k, v|
+    result << v.to_s + ' ' + k
+  end
+
+  result
 end
