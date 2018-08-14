@@ -9,9 +9,3 @@ def search_bst(root, val)
         []
     end
 end
-
-def search_bst(root, val)
-  return root if root.val == val
-  if root.val >
-  []
-end
